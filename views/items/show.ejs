@@ -1,0 +1,101 @@
+<% include ../partials/header %>
+
+
+<div class="container">
+  <div class="row">
+    <div class="col-md-3">
+      <ul class="list-group" data-spy="affix" data-offset-top="130">
+        <li class="list-group-item nav"><strong><%= item.name %></strong>
+        </li>
+        <li class="list-group-item">Item Number:
+          <%= item._id%>
+        </li>
+        <form action="/items/<%= item._id %>?_method=PUT" method="POST"> 
+          <li class="list-group-item">Sale Price: Php <%= item.sale %> </li>      	  
+          <li class="list-group-item">Owner: <%= item.owner %> </li>
+          <% if(currentUser && !currentUser._id.equals(item.author.id)) { %>
+          <% if(!item.owner) {%>
+          <button class="btn btn-success btn-block btn-lg" type="submit" onclick="return confirmBuy()">BUY</button>
+          <% } %>
+          <% } %>
+        </form>
+        
+        <script>
+          function confirmBuy()
+          {
+            var x = confirm("Are you sure?");
+            if (x){
+              return true;
+            }
+            else {
+              return false;
+            }
+          }
+        </script>
+
+
+        
+      </ul>
+    </div>
+
+    <div class="col-md-9">
+      <div class="thumbnail">
+        <!-- -->
+        <div class="row">
+
+          <% itemImage.forEach(function(itemImage, index){%>
+          <div class="column">
+            <img src="/uploads/<%=itemImage%>" alt="Front" style="width:100%" onclick="openImg('<%=index%>');">
+          </div>
+          <%index++});%>
+
+        </div>
+
+        <% itemImage.forEach(function(itemImage, index){%>
+
+        <!-- -->
+        <div id="<%=index%>" class="expandedImg">
+          <img src="/uploads/<%=itemImage%>" alt="Front" style="width:100%"> 
+          <span onclick="this.parentElement.style.display='none'" class="closebtn">&times;</span>
+        </div>
+
+        <%index++});%>
+
+        <script>
+          function openImg(imgName) {
+            var i, x;
+            x = document.getElementsByClassName("expandedImg");
+            for (i = 0; i < x.length; i++) {
+             x[i].style.display = "none";
+           }
+           document.getElementById(imgName).style.display = "block";
+         }
+       </script>
+
+
+       <div class="caption-full">
+        <p class="pull-right">PRICE: Php
+          <%= item.price%>
+        </p>
+        <p>
+          <%= item.created.toDateString() %>
+        </p>
+        <pre>Item Description:<br /><%- item.description %>
+        </pre>
+        <p>
+          <em>Posted by: <%= item.author.name %></em>
+        </p>
+        <% if(currentUser && currentUser._id.equals(item.author.id)) { %>
+        <form class="delete-form" action="/items/<%= item._id%>?_method=DELETE" method="POST">
+          <button class="btn btn-xs btn-danger" onclick="return confirmBuy()">Delete</button>
+        </form>
+        <% } %>
+      </div>
+    </div>
+  </div>
+</div>
+</div>
+<!-- <footer class="bgFooter">
+   Buyback &copy; 2017
+ </footer>
+-->  <% include ../partials/footer %>

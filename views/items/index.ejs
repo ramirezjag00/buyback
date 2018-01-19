@@ -1,0 +1,63 @@
+<% include ../partials/header %>
+
+<div class="container">
+	<header class="jumbotron">
+		<div class="container">
+			<h1>Welcome to Buyback!</h1>
+			<p>View our hand-picked items for sale.</p>
+			<p><a class="btn btn-lg btn-danger active" data-toggle="collapse" href="#disclaimerCollapse">DISCLAIMER</a></p>
+			<p>
+       <div id="disclaimerCollapse" class="collapse">
+        <ol class="list-group">
+           <li class="list-group-item">Only SCIC employees may use the service(s) offered by the web application.</li>
+          <li class="list-group-item">You must be logged in to bid on an item. If you wish to have an iBid Account, please submit a ticket request using JIRA.</li>
+          <li class="list-group-item">Each item will end on 12PM, 7 days after item has been posted</li>
+          <li class="list-group-item">Pressing the "BID" button will increase the item's Current Bid by 50 Php.</li>
+          <li class="list-group-item">There is a verification whether to confirm your bid or cancel after pressing "BID" button.</li>
+          <li class="list-group-item">Once you are the Highest Bidder, there is no option to revert back.</li>
+          <li class="list-group-item">Please take note of your iBid ID located on the Navigation Bar which will show in the Highest Bidder block instead of your name.</li>
+          <li class="list-group-item">If you're the Highest Bidder of an item, you will not be able to press bid button again unless you've been outbid.</li>
+          <li class="list-group-item">Items for sale may be inspected upon request. Items also go through a check before being posted on this website.</li>
+          <li class="list-group-item">When an item's Bidding Date expires, and the winner of item's auction fails to pay for the item within 48 hours (we must be notified if you will be unable to claim the item during the 48 hour span or in advanced) or cancellation will cost PHP 250.00 and 5% of the item's current bid.</li>
+           <li class="list-group-item">The mode of payment is in cash basis only and winner of an item's auction must pick-up the item in MIS Department.</li>
+          <li class="list-group-item">For any concerns, reactions, suggestions you may contact MIS Hotline dial 899 or file a ticket request using JIRA.</li>
+        </ol>
+      </div>
+      
+      <% if(currentUser && (currentUser.name === "Admin")) { %>
+      <a class="btn btn-lg btn-success" href="/items/new">Add New Item</a>
+      <% } %>
+    </p>
+  </div>        
+  
+</header>
+
+<div class="row text-center divFlexWrap">
+
+  <div class="col-sm-12">
+    <% if(noMatch !== null){ %>
+    <h2><%= noMatch %></h2>
+    <% } %>
+  </div>
+
+  <% items.reverse().forEach(function(item){%>
+  <div class="col-md-3 col-sm-6">
+   <a href="/items/<%= item._id %>">
+     <div class="thumbnail">
+      <img class="img-responsive indexItem" src="/uploads/<%= item.image[0] %>" />
+      <div class="caption">
+        <h4><%= item.name %></h4>
+      </a>
+    </div>
+  </div>
+</div>
+
+<% }); %>				
+</div>
+</div>
+ <!-- <footer class="bgFooter">
+   iBid &copy; 2017
+ </footer> -->
+ <% include ../partials/footer %>	
+
+

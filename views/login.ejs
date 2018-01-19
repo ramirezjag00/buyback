@@ -1,0 +1,24 @@
+<% include ./partials/header %>
+<div class="container">
+	<div class="row">
+<h1 class="h1TextCenter">Log In</h1>
+<h4 class="h1TextCenter">to continue to Buyback</h4>
+<div class="divFormWidthMargin">
+<form action="/login" method="POST">
+	<div class="form-group">
+	<input class="form-control" type="text" name="username" placeholder="employee number" required="required">
+	</div>
+	<div class="form-group">
+	<input class="form-control" type="password" name="password" placeholder="password" required="required">
+	</div>
+	<div class="form-group">
+	<button class="btn btn-lg btn-success btn-block">LOG IN</button>
+	</div>
+	<div class="form-group">
+	<p>Forgot Password? Contact IT Helpdesk.</p>
+	</div>
+</form>
+</div>
+</div>
+</div>
+<% include ./partials/footer %>
